@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Industrial Solutions Group Sp. z o.o.'),
 
     /*
     |--------------------------------------------------------------------------
