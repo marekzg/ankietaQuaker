@@ -20,10 +20,11 @@ class GeneratesTokenUser extends Seeder
 
         $tokens = [];
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
 
             $tokens[] = [
-                'token' => $faker->numerify('#####'),
+                // 'token' => $faker->numerify('#####'),
+                'token' => $faker->bothify('##???###'),
                 'status' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
