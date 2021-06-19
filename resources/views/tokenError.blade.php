@@ -41,9 +41,12 @@
 
                 <div class="card mt-3">
                     <div class="card">
-                        <div class="card-header h2">Token nieprawidłowy </div>
-                        <div class="card-body text-error">
-                            Błedny token lub token był już wykozystany
+                        <div class="card-header h2">{{ $title }}</div>
+                        <div class="card-body text-error worning">
+                            {{ $worning }}<br>
+                            <p class="text-secondary">
+                                Za chwilę zostaniesz przekierowany na stronę główną.
+                            </p>
                         </div>
                     </div>
                 </div>
