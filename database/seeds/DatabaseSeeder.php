@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         $this->call([
             // GeneratesTokenUser::class,
-            GeneratesIsgroupUsers::class,
+            // GeneratesIsgroupUsers::class,
         ]);
     }
 }

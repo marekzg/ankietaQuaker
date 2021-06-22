@@ -58,7 +58,6 @@ class QueryController extends Controller
         $allUsers = DB::table('isgroupUsers')->select('isgroupUsers.id', 'isgroupUsers.imie', 'isgroupUsers.foto')->get();
 
 
-
         return view('form2', [
             'allUsers' => $allUsers,
             'query1' => Session::get('query1'),
@@ -72,16 +71,13 @@ class QueryController extends Controller
         if ((Session::get('tokenIsgroup') === null) or ($tokens->status)) {
             return view('tokenError', [
                 'title' => 'Token nieprawidłowy',
-                'worning' => 'Błedny token lub token był już wykozystany'
+                'worning' => 'Token nieprawidłowy lub był już wykorzystany.',
+                'text' => '',
             ]);
         }
 
-
-
         Session::put('query2', $request->checkUser);
         Session::put('opisuser2', $request->opisUsers);
-
-
 
         $allUsers = DB::table('isgroupUsers')->select('isgroupUsers.id', 'isgroupUsers.imie', 'isgroupUsers.foto')->get();
 
@@ -105,9 +101,19 @@ class QueryController extends Controller
 
     public function changeToken(String $token): void
     {
-        DB::table('tokenUser')
-            ->where('token', $token)
-            ->update(array('status' => 1));
+        if ($token) {
+            DB::table('tokenUser')
+                ->where('token', $token)
+                ->update(array('status' => 1));
+        } else {
+            Session::flush();
+            Session::regenerate();
+            view('tokenError', [
+                'title' => 'Token nieprawidłowy',
+                'worning' => 'Token nieprawidłowy lub był już wykorzystany.',
+                'text' => '',
+            ]);
+        }
     }
 
     public function ratingIsUser(string $idUser = ""): void
@@ -131,24 +137,24 @@ class QueryController extends Controller
     {
 
 
-            // $this->tokenGlobl,
-            $token = Session::get('tokenIsgroup') ?: '';
+        // $this->tokenGlobl,
+        $token = Session::get('tokenIsgroup') ?: '';
 
-            $checkUser1  = Session::get('query1') ?: '';
-            $feedbackUser1 = Session::get('opisuser1') ?: '';
+        $checkUser1  = Session::get('query1') ?: 0;
+        $feedbackUser1 = Session::get('opisuser1') ?: '';
 
-            $checkUser2  = Session::get('query2') ?: '';
-            $feedbackUser2 = Session::get('opisuser2') ?: '';
+        $checkUser2  = Session::get('query2') ?: 0;
+        $feedbackUser2 = Session::get('opisuser2') ?: '';
 
-            $checkUser3  = Session::get('query3') ?: '';
-            $feedbackUser3 = Session::get('opisuser3') ?: '';
+        $checkUser3  = Session::get('query3') ?: 0;
+        $feedbackUser3 = Session::get('opisuser3') ?: '';
 
-            $question1 = $request->napoj ?: '';
-            $question2 = $request->organizacja ?: '';
-            $question3 = $request->workIsgroup ?: '';
-            $question4a = $request->imprezaMiejsce ?: '';
-            $question4b = $request->imprezaAtrakcje ?: '';
-            $question5 = $request->gadzety ?: '';
+        $question2 = $request->napoj ?: '';
+        $question3 = $request->organizacja ?: '';
+        $question4 = $request->workIsgroup ?: '';
+        $question5a = $request->imprezaMiejsce ?: '';
+        $question5b = $request->imprezaAtrakcje ?: '';
+        $question6 = $request->gadzety ?: '';
 
 
         // $this->changeToken(Session::get('tokenIsgroup'));
@@ -159,33 +165,46 @@ class QueryController extends Controller
         if ($checkUser2) $this->ratingIsUser($checkUser2);
         if ($checkUser3) $this->ratingIsUser($checkUser3);
 
-        if ($feedbackUser1) $this->saveFeedback($checkUser1, $feedbackUser1, $token);
-        if ($feedbackUser2) $this->saveFeedback($checkUser2, $feedbackUser2, $token);
-        if ($feedbackUser3) $this->saveFeedback($checkUser3, $feedbackUser3, $token);
+        // if ($feedbackUser1) $this->saveFeedback($checkUser1, $feedbackUser1, $token);
+        // if ($feedbackUser2) $this->saveFeedback($checkUser2, $feedbackUser2, $token);
+        // if ($feedbackUser3) $this->saveFeedback($checkUser3, $feedbackUser3, $token);
 
 
 
+        DB::table('userfeedbacks')->insert([
+            [
+                'isgroupUser_id' => $checkUser1,
+                'opinion' => $feedbackUser1,
+                'tokenUser_token' => $token,
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'isgroupUser_id' => $checkUser2,
+                'opinion' => $feedbackUser2,
+                'tokenUser_token' => $token,
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'isgroupUser_id' => $checkUser3,
+                'opinion' => $feedbackUser3,
+                'tokenUser_token' => $token,
+                'updated_at' => Carbon::now(),
+            ]
+        ]);
 
-        // DB::table('userfeedbacks')->insert([
-        //     [
-        //         'isgroupUser_id' => $tabQues['checkUser1'],
-        //         'opinion' => $tabQues['feedbackUser1'],
-        //         'tokenUser_token' => $tabQues['token'],
-        //         'updated_at' => Carbon::now(),
-        //     ],
-        //     [
-        //         'isgroupUser_id' => $tabQues['checkUser2'],
-        //         'opinion' => $tabQues['feedbackUser2'],
-        //         'tokenUser_token' => $tabQues['token'],
-        //         'updated_at' => Carbon::now(),
-        //     ],
-        //     [
-        //         'isgroupUser_id' => $tabQues['checkUser3'],
-        //         'opinion' => $tabQues['feedbackUser3'],
-        //         'tokenUser_token' => $tabQues['token'],
-        //         'updated_at' => Carbon::now(),
-        //     ]
-        // ]);
+
+        DB::table('questions')->insert([
+            [
+                'question2' => $question2,
+                'question3' => $question3,
+                'question4' => $question4,
+                'question5a' => $question5a,
+                'question5b' => $question5b,
+                'question6' => $question6,
+                'tokenUser_token' => $token,
+                'updated_at' => Carbon::now(),
+            ],
+        ]);
 
         // dd(Session::get('query1'));
 
@@ -193,8 +212,9 @@ class QueryController extends Controller
         Session::regenerate();
 
         return view('tokenError', [
-            'title' => 'Ankieta wysłana ;)',
-            'worning' => 'Dziękujemy za poświęcony czas i wypełnienie ankiety. Wasze opinie i uwagi są dla nas bardzo cenne! '
+            'title' => 'Ankieta wysłana',
+            'worning' => 'Dziękujemy za poświęcony czas i wypełnienie ankiety. Wasze opinie i uwagi są dla nas bardzo cenne! ',
+            'text' => 'Spośród osób, które wypełnią ankietę wylosujemy na spotkaniu jedną, która otrzyma prezent.',
         ]);
     }
 }

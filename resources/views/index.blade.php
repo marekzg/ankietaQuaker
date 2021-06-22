@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-    <title>Laravel@@1</title>
+    <title>Ankieta-is-group.pl</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -22,9 +22,9 @@
                 @else
                     <a href="{{ route('login') }}">Login</a>
 
-                    @if (Route::has('register'))
+                    {{-- @if (Route::has('register'))
                         <a href="{{ route('register') }}">Register</a>
-                    @endif
+                    @endif --}}
                 @endauth
             </div>
         @endif
@@ -34,12 +34,18 @@
 
 
                 <blockquote class="title blockquote text-primary">
+                    <img src="./img/logo_isg.png">
                     <p>Industrial Solutions Group Sp. z o.o.</p>
                 </blockquote>
 
                 <div class="card mt-3">
                     <div class="card">
-                        <div class="card-header h2">Ankieta</div>
+                        <div class="card-header h2">
+                            <h2>Ankieta</h2>
+                            <div class="text-primary h5">Ankieta jest w pełni anonimowa. Jej celem jest poznanie Wasze
+                                opinii</div>
+                            <div class="text-danger h5">Spośród osób, które wypełnią ankietę wylosujemy na spotkaniu jedną, która otrzyma prezent.</div>
+                        </div>
                         <div class="card-body">
                             <form action="{{ route('checkToken') }}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -48,7 +54,7 @@
                                 <input type="text" name="token" class="form-control" value=""
                                     placeholder="wprowadz token">
                                 <br>
-                                <button type="submit" class="btn btn-success">Sprawdz</button>
+                                <button type="submit" class="btn btn-success">Sprawdź</button>
                             </form>
                         </div>
                     </div>

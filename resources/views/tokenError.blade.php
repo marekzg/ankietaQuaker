@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta http-equiv="Refresh" content="5; url={{ route('index') }}">
+    <meta http-equiv="Refresh" content="10; url={{ route('index') }}">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 
-    <title>Laravel@@1</title>
+    <title>Ankieta-is-group.pl</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -24,9 +24,9 @@
                 @else
                     <a href="{{ route('login') }}">Login</a>
 
-                    @if (Route::has('register'))
+                    {{-- @if (Route::has('register'))
                         <a href="{{ route('register') }}">Register</a>
-                    @endif
+                    @endif --}}
                 @endauth
             </div>
         @endif
@@ -36,6 +36,7 @@
 
 
                 <blockquote class="title blockquote text-primary">
+                    <img src="./img/logo_isg.png">
                     <p>Industrial Solutions Group Sp. z o.o.</p>
                 </blockquote>
 
@@ -44,6 +45,7 @@
                         <div class="card-header h2">{{ $title }}</div>
                         <div class="card-body text-error worning">
                             {{ $worning }}<br>
+                            {{ $text ?? '' }}<br>
                             <p class="text-secondary">
                                 Za chwilę zostaniesz przekierowany na stronę główną.
                             </p>

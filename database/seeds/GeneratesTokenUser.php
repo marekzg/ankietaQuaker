@@ -20,7 +20,7 @@ class GeneratesTokenUser extends Seeder
 
         $tokens = [];
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 51; $i++) {
 
             $tokens[] = [
                 // 'token' => $faker->numerify('#####'),

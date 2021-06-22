@@ -3,10 +3,32 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                {{-- <div class="card-header">{{ __('Dashboard') }}</div> --}}
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <!-- Brand/logo -->
+                    {{-- <a class="navbar-brand" href="#">Logo</a> --}}
 
+                    <!-- Links -->
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">Tokeny</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('ranking') }}">Ranking</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pytanie2') }}">Pytanie 2</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pytanie3') }}">Pytanie 3</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pytanie4') }}">Pytanie 4</a>
+                      </li>
+                    </ul>
+                  </nav>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -14,11 +36,13 @@
                         </div>
                     @endif
 
-                    stat
+
 
                     {{-- {{ __('You are logged in!') }} --}}
 
-                    {{ __('To zacztnamy kodowanie')}}
+                    {{-- {{ __('To zacztnamy kodowanie d')}} --}}
+
+                    @yield('content2')
                 </div>
             </div>
         </div>

@@ -30,6 +30,7 @@ Route::post('/query4','QueryController@query3')->name('query3');
 
 Route::post('/form','QueryController@queryForm')->name('queryForm');
 
+
 Route::get('/query2','QueryController@index');
 Route::get('/query3','QueryController@index');
 Route::get('/query4','QueryController@index');
@@ -39,4 +40,8 @@ Route::get('/form','QueryController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@tokens')->name('home');
+Route::get('/ranking', 'HomeController@ranking')->name('ranking');
+Route::get('/pytanie2', 'HomeController@pytanie2')->name('pytanie2');
+Route::get('/pytanie3', 'HomeController@pytanie3')->name('pytanie3');
+Route::get('/pytanie4', 'HomeController@pytanie4')->name('pytanie4');
