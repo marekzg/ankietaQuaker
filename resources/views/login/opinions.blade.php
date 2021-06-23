@@ -3,7 +3,7 @@
 @section('content2')
 
     <blockquote class="blockquote text-success">
-        <p>Ranking pracowniczy</p>
+        <p>Opinie o nas</p>
     </blockquote>
 
     {{-- <div class="d-flex flex-row bd-highlight mb-12">
@@ -13,28 +13,24 @@
 
     <div class="card mt-12">
         <div class="card">
-            <div class="card-header"><i class="fas fa-table mr-1"></i>Ranking pracowniczy</div>
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Opinie</div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>lp</th>
-                                <th>Imię Nazwisko</th>
-                                <th>Zdjęcie</th>
-                                <th>Ocena </th>
+                                <th>lp.</th>
+                                <th>Imie Nazwisko</th>
+                                <th>opinie</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($rankingUsers ?? [] as $user)
+                            @foreach ($Users ?? [] as $user)
+
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->imie }}</td>
-                                    <td> <img src="./img/{{ $user->foto }}" alt="{{ $user->imie }}"
-                                            width="100px" height="auto">
-                                    </td>
-                                    <td>{{ $user->ocena }}</td>
-
+                                    <td><a class="nav-link" href="{{ route('showOpinion',$user->id) }}">Sprawdz opinie</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

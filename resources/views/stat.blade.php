@@ -27,6 +27,15 @@
                       <li class="nav-item">
                         <a class="nav-link" href="{{ route('pytanie4') }}">Pytanie 4</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pytanie5') }}">Pytanie 5</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pytanie6') }}">Pytanie 6</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('opinions') }}">Opinie</a>
+                      </li>
                     </ul>
                   </nav>
                 <div class="card-body">

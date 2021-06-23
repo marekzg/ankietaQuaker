@@ -45,3 +45,7 @@ Route::get('/ranking', 'HomeController@ranking')->name('ranking');
 Route::get('/pytanie2', 'HomeController@pytanie2')->name('pytanie2');
 Route::get('/pytanie3', 'HomeController@pytanie3')->name('pytanie3');
 Route::get('/pytanie4', 'HomeController@pytanie4')->name('pytanie4');
+Route::get('/pytanie5', 'HomeController@pytanie5')->name('pytanie5');
+Route::get('/pytanie6', 'HomeController@pytanie6')->name('pytanie6');
+Route::get('/opinions', 'HomeController@opinions')->name('opinions');
+Route::get('/opinion/{idUser}', 'HomeController@showOpinion')->name('showOpinion');

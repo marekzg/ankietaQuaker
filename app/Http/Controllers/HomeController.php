@@ -82,4 +82,65 @@ class HomeController extends Controller
             'niewiem' => $niewiem,
         ]);
     }
+
+    public function pytanie5(){
+        $pytanie5 = DB::table('questions')
+        ->select('questions.question5a','questions.question5b')
+        ->where('questions.question5a','!=','')
+        ->orwhere('questions.question5b','!=','')
+        ->orderBy('updated_at','asc')->get();
+
+        return view('login.pytanie5',[
+            'pytanie5' => $pytanie5
+        ]);
+    }
+
+    public function pytanie6(){
+        $pytanie6 = DB::table('questions')
+        ->select('questions.question6')
+        ->where('questions.question6','!=','')
+        ->orderBy('updated_at','asc')->get();
+
+        return view('login.pytanie6',[
+            'pytanie6' => $pytanie6,
+        ]);
+    }
+
+    public function opinions(){
+        // $Users = DB::table('isgroupUsers')->select('isgroupUsers.id', 'isgroupUsers.imie')->get();
+
+
+        $Users = DB::table('isgroupUsers')
+        ->rightJoin('userfeedbacks','isgroupUsers.id','=','userfeedbacks.isgroupUser_id')
+        ->whereColumn('isgroupUsers.id','userfeedbacks.isgroupUser_id')
+        ->distinct()
+        ->select('isgroupUsers.id','isgroupUsers.imie')->orderBy('isgroupUsers.id','asc')->get();
+
+        // $Users = DB::table('userfeedbacks')
+        // ->join('isgroupUsers','userfeedbacks.isgroupUser_id','=','isgroupUsers.id')
+        // ->select('isgroupUsers.id','isgroupUsers.imie','userfeedbacks.opinion')->get();
+
+
+        return view('login.opinions',[
+            'Users' => $Users,
+        ]);
+    }
+
+    public function showOpinion(int $idUser){
+        $opinionUser = DB::table('userfeedbacks')
+        ->where('userfeedbacks.isgroupUser_id',$idUser)
+        ->join('isgroupUsers','userfeedbacks.isgroupUser_id','=','isgroupUsers.id')
+        ->select('isgroupUsers.imie','userfeedbacks.opinion')->get();
+
+        $imieNazwisko = DB::table('isgroupUsers')
+        ->where('isgroupUsers.id',$idUser)
+        ->select('isgroupUsers.imie')->first();
+
+        // dd($opinionUser);
+
+        return view('login.showOpinion',[
+            'opinionUser' => $opinionUser,
+            'imieNazwisko' => $imieNazwisko,
+        ]);
+    }
 }
