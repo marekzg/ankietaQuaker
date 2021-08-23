@@ -5,24 +5,30 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 
 class QueryController extends Controller
 {
     public function index(Request $request)
     {
-        return view('index');
+        $dateNow = Carbon::now('Europe/Berlin');
+        $dateFinish = '2022-06-25 23:41:00';
+
+       return Carbon::parse($dateNow)->greaterThan($dateFinish) ? view('koniecAnkiety') : view('index');
+
+                //return view('koniecAnkiety');
     }
+
     public function checkToken(Request $request)
     {
         $token = $request->token;
         $tokens = DB::table('tokenUser')->where('tokenUser.token', $token)->first();
 
-        if (($tokens === null) or ($tokens->status)) {
+        if (($tokens === null) || ($tokens->status)) {
             return view('tokenError', [
                 'title' => 'Token nieprawidłowy',
                 'worning' => 'Błedny token lub token był już wykozystany'
@@ -43,7 +49,7 @@ class QueryController extends Controller
     {
         $token = Session::get('tokenIsgroup');
         $tokens = DB::table('tokenUser')->where('tokenUser.token', $token)->first();
-        if ((Session::get('tokenIsgroup') === null) or ($tokens->status)) {
+        if ((Session::get('tokenIsgroup') === null) || ($tokens->status)) {
             return view('tokenError', [
                 'title' => 'Token nieprawidłowy',
                 'worning' => 'Błedny token lub token był już wykozystany'
@@ -51,8 +57,12 @@ class QueryController extends Controller
         }
 
 
-        Session::put('query1', $request->checkUser);
-        Session::put('opisuser1', $request->opisUsers);
+        if (isset($request->checkUser)) {
+            Session::put('query1', $request->checkUser);
+        }
+        if (!empty($request->opisUsers)) {
+            Session::put('opisuser1', $request->opisUsers);
+        }
 
 
         $allUsers = DB::table('isgroupUsers')->select('isgroupUsers.id', 'isgroupUsers.imie', 'isgroupUsers.foto')->get();
@@ -68,7 +78,7 @@ class QueryController extends Controller
     {
         $token = Session::get('tokenIsgroup');
         $tokens = DB::table('tokenUser')->where('tokenUser.token', $token)->first();
-        if ((Session::get('tokenIsgroup') === null) or ($tokens->status)) {
+        if ((Session::get('tokenIsgroup') === null) || ($tokens->status)) {
             return view('tokenError', [
                 'title' => 'Token nieprawidłowy',
                 'worning' => 'Token nieprawidłowy lub był już wykorzystany.',
@@ -76,8 +86,12 @@ class QueryController extends Controller
             ]);
         }
 
-        Session::put('query2', $request->checkUser);
-        Session::put('opisuser2', $request->opisUsers);
+        if (isset($request->checkUser)) {
+            Session::put('query2', $request->checkUser);
+        }
+        if (!empty($request->opisUsers)) {
+            Session::put('opisuser2', $request->opisUsers);
+        }
 
         $allUsers = DB::table('isgroupUsers')->select('isgroupUsers.id', 'isgroupUsers.imie', 'isgroupUsers.foto')->get();
 
@@ -93,13 +107,16 @@ class QueryController extends Controller
 
     public function query3(Request $request): view
     {
-        Session::put('query3', $request->checkUser);
-        Session::put('opisuser3', $request->opisUsers);
-
+        if (isset($request->checkUser)) {
+            Session::put('query3', $request->checkUser);
+        }
+        if (!empty($request->opisUsers)) {
+            Session::put('opisuser3', $request->opisUsers);
+        }
         return view('form4');
     }
 
-    public function changeToken(String $token): void
+    public function changeToken(string $token): void
     {
         if ($token) {
             DB::table('tokenUser')
@@ -121,7 +138,7 @@ class QueryController extends Controller
         DB::table('isgroupUsers')->where('isgroupUsers.id', $idUser)->increment('ocena');
     }
 
-    public function saveFeedback(string $checkUser = "", string $feedbackUser = "", string $token)
+    public function saveFeedback(string $checkUser = "", string $feedbackUser = "", string $token): void
     {
         DB::table('userfeedbacks')->insert([
             'isgroupUser_id' => $checkUser,
@@ -132,21 +149,18 @@ class QueryController extends Controller
     }
 
 
-
     public function queryForm(Request $request): view
     {
-
-
         // $this->tokenGlobl,
         $token = Session::get('tokenIsgroup') ?: '';
 
-        $checkUser1  = Session::get('query1') ?: 0;
+        $checkUser1 = Session::get('query1') ?: 0;
         $feedbackUser1 = Session::get('opisuser1') ?: '';
 
-        $checkUser2  = Session::get('query2') ?: 0;
+        $checkUser2 = Session::get('query2') ?: 0;
         $feedbackUser2 = Session::get('opisuser2') ?: '';
 
-        $checkUser3  = Session::get('query3') ?: 0;
+        $checkUser3 = Session::get('query3') ?: 0;
         $feedbackUser3 = Session::get('opisuser3') ?: '';
 
         $question2 = $request->napoj ?: '';
@@ -168,7 +182,6 @@ class QueryController extends Controller
         // if ($feedbackUser1) $this->saveFeedback($checkUser1, $feedbackUser1, $token);
         // if ($feedbackUser2) $this->saveFeedback($checkUser2, $feedbackUser2, $token);
         // if ($feedbackUser3) $this->saveFeedback($checkUser3, $feedbackUser3, $token);
-
 
 
         DB::table('userfeedbacks')->insert([

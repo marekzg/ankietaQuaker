@@ -12,7 +12,6 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -30,16 +29,12 @@
                 @endauth
             </div>
         @endif
-
         <div class="content">
             <div class="fs-3">
-
-
                 <blockquote class="title blockquote text-primary">
                     <img src="./img/logo_isg.png">
                     <p>Industrial Solutions Group Sp. z o.o.</p>
                 </blockquote>
-
                 <div class="card mt-3">
                     <div class="card">
                         <div class="card-header h2">{{ $title }}</div>
@@ -52,12 +47,8 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </body>
-
 </html>

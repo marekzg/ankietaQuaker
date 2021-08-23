@@ -36,6 +36,12 @@
                       <li class="nav-item">
                         <a class="nav-link" href="{{ route('opinions') }}">Opinie</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('randomUserWin') }}">Losowanie tokenu</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('randomOrganization') }}">Losowanie organizacji</a>
+                      </li>
                     </ul>
                   </nav>
                 <div class="card-body">

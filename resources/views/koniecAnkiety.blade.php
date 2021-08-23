@@ -41,27 +41,23 @@
                 <div class="card">
                     <div class="card-header h2">
                         <h2>Ankieta</h2>
-                        <div class="text-primary h5">Ankieta jest w pełni anonimowa. Jej celem jest poznanie Wasze
-                            opinii
-                        </div>
-                        <div class="text-danger h5">Spośród osób, które wypełnią ankietę wylosujemy na spotkaniu jedną,
-                            która otrzyma prezent.
-                        </div>
+                        {{-- <div class="text-primary h5">Ankieta jest w pełni anonimowa. Jej celem jest poznanie Wasze
+                            opinii</div> --}}
+                        <div class="text-danger h5">Niestety spóźniłeś się - ankieta jest już nie dostępna :(</div>
                     </div>
-                    <div class="card-body">
+                    {{-- <div class="card-body">
                         <form action="{{ route('checkToken') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <!-- X-XSRF-TOKEN -->
+                            @csrf
+                            <!-- X-XSRF-TOKEN -->
 
                             <input type="text" name="token" class="form-control" value=""
-                                   placeholder="wprowadz token">
+                                placeholder="wprowadz token">
                             <br>
                             <button type="submit" class="btn btn-success">Sprawdź</button>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
-
 
         </div>
 

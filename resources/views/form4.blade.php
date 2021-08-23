@@ -43,9 +43,8 @@
                         <div class="card-header h2">Ankieta - strona 4 / 4 </div>
                         <div class="card-body">
                             <form action="{{ route('queryForm') }}" method="post" enctype="multipart/form-data">
-                                @csrf
+                            @csrf
                                 <!-- X-XSRF-TOKEN -->
-
 
                                 <div class="alert alert-primary h6">
                                     <strong> Pytanie 2.<br>

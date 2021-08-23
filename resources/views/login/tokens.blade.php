@@ -27,7 +27,7 @@
                         <tbody>
                             @foreach ($listTokensFree ?? [] as $token)
                             <tr>
-                                <td>{{ $token->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $token->token }}</td>
                             </tr>
                         @endforeach
