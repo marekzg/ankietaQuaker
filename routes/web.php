@@ -34,12 +34,14 @@ Route::post('/query4',[QueryController::class,'query3'])->name('query3');
 Route::post('/form',[QueryController::class,'queryForm'])->name('queryForm');
 
 
-Route::get('/query2','QueryController@index');
-Route::get('/query3','QueryController@index');
-Route::get('/query4','QueryController@index');
-Route::get('/form','QueryController@index');
-
-
+//Route::get('/query2','QueryController@index');
+Route::get('/query2',[QueryController::class,'index']);
+//Route::get('/query3','QueryController@index');
+Route::get('/query3',[QueryController::class,'index']);
+//Route::get('/query4','QueryController@index');
+Route::get('/query4',[QueryController::class,'index']);
+//Route::get('/form','QueryController@index');
+Route::get('/form',[QueryController::class,'index']);
 
 Auth::routes();
 
