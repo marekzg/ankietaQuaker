@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QueryController;
@@ -45,7 +46,8 @@ Route::get('/form',[QueryController::class,'index']);
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@tokens')->name('home');
+//Route::get('/home', 'HomeController@tokens')->name('home');
+Route::get('/home', [HomeController::class,'tokens'])->name('home');
 Route::get('/ranking', 'HomeController@ranking')->name('ranking');
 Route::get('/pytanie2', 'HomeController@pytanie2')->name('pytanie2');
 Route::get('/pytanie3', 'HomeController@pytanie3')->name('pytanie3');
