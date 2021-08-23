@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QueryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,21 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','QueryController@index')->name('index');
+//Route::get('/','QueryController@index')->name('index');
+Route::get('/',[QueryController::class,'index'])->name('index');
 
-Route::post('/','QueryController@checkToken')->name('checkToken');
+//Route::post('/','QueryController@checkToken')->name('checkToken');
+Route::post('/',[QueryController::class,'checkToken'])->name('checkToken');
 
+//Route::post('/query2','QueryController@query1')->name('query1');
+Route::post('/query2',[QueryController::class,'query1'])->name('query1');
 
-Route::post('/query2','QueryController@query1')->name('query1');
+//Route::post('/query3','QueryController@query2')->name('query2');
+Route::post('/query3',[QueryController::class,'query2'])->name('query2');
 
-Route::post('/query3','QueryController@query2')->name('query2');
+//Route::post('/query4','QueryController@query3')->name('query3');
+Route::post('/query4',[QueryController::class,'query3'])->name('query3');
 
-
-Route::post('/query4','QueryController@query3')->name('query3');
-
-// Route::post('/query4','QueryController@query2')->name('query4');
-
-Route::post('/form','QueryController@queryForm')->name('queryForm');
+//Route::post('/form','QueryController@queryForm')->name('queryForm');
+Route::post('/form',[QueryController::class,'queryForm'])->name('queryForm');
 
 
 Route::get('/query2','QueryController@index');
@@ -49,3 +52,5 @@ Route::get('/pytanie5', 'HomeController@pytanie5')->name('pytanie5');
 Route::get('/pytanie6', 'HomeController@pytanie6')->name('pytanie6');
 Route::get('/opinions', 'HomeController@opinions')->name('opinions');
 Route::get('/opinion/{idUser}', 'HomeController@showOpinion')->name('showOpinion');
+Route::get('/randomUserWin/{start?}', 'HomeController@randomUserWin')->name('randomUserWin');
+Route::get('/randomOrganization/{start?}', 'HomeController@randomOrganization')->name('randomOrganization');
