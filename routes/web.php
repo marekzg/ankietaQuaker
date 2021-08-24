@@ -16,6 +16,8 @@ use App\Http\Controllers\QueryController;
 |
 */
 
+//check routs to laravel 8
+
 //Route::get('/','QueryController@index')->name('index');
 Route::get('/',[QueryController::class,'index'])->name('index');
 
